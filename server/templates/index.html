@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="USC/ISI VISTA Group">
+
+    <title>Three Story Systems</title>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+    <!-- Custom styles for this template -->
+    <link href="./static/css/starter-template.css" rel="stylesheet">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+
+    <script type="text/javascript">
+      $(document).ready(function(){
+      $("button").click(function(){
+      $("p").hide();
+      });
+      });
+    </script>
+
+  </head>
+
+
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+	<div class="navbar-header">
+	  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+	  </button>
+	  <a class="navbar-brand" href="#">Stories v1.0</a>
+	</div>
+	<div class="collapse navbar-collapse">
+	  <ul class="nav navbar-nav">
+
+            <li class="active"><a href="./index.html">Auto</a></li>	
+            <li><a href="./interactive.html">Interactive</a></li>
+	    <li class="dropdown">
+	      <a class="dropdown-toggle" data-toggle="dropdown" href="#">Advanced <span class="caret"></span></a>
+	      <ul class="dropdown-menu">
+		<li style="white-space: nowrap;">Storyline diversity (0.3-1.5):<input id="kw_temp" size="5"></input></li>
+		<li>Story diversity (0.3-4.5):<input id="story_temp" size="5"></input></li>
+		<li>Dedup: <input type="checkbox" id="dedup" value="yes" checked></input></li>
+		<li>Maxlen:<input id="max_len" size=2></input></li>
+		<li>Use gold storylines:<input type="checkbox" id="use_gold" name="use_gold_titles" value="yes"></input></li>
+		{% if server_debug_mode %}
+		<li>Rapid debugging mode:<input type="checkbox" id="debug_mode" name="debug_mode" value="yes" checked></input></li>
+		{% else %}
+		<li>Rapid debugging mode:<input type="checkbox" id="debug_mode" name="debug_mode" value="yes"></input></li>
+		{% endif %}
+	      </ul>
+	    </li>
+	  </ul>
+
+	  <ul class="nav navbar-nav navbar-right">
+	    <li style="display:none;"><a><span class="label label-primary" id="nstory"></span></a></li>
+	    <li><span class="label label-primary" id="elapsed"></span></li>
+<div id = "story_id" style="display:none"></div>
+</ul>
+</div><!--/.nav-collapse -->
+</div>
+</div>
+
+
+<div class="container">
+  <div class="starter-template">
+    <div class="row">
+      <div class="col-lg-8">
+	<div class="input-group input-group-lg">
+	  <input type="text" class="form-control" id="input-topic" placeholder="Enter a title: e.g. the not so haunted house">
+	  <span class="input-group-btn">
+	    <button class="btn btn-default" type="button" id="translate-button" data-loading-text="Generating...">Generate</button>
+	  </span>
+	</div><!-- /input-group -->
+      </div><!-- /.col-lg-6 -->
+
+    </div><!-- /.row -->
+
+  </div>
+  <div class="output">  
+
+    <div class="row" style="margin-bottom:15px">
+      <div class="col-lg-6">
+	<h3><span id="status" class="label label-info">Ready</span></h3>
+      </div>
+    </div>
+
+    <div>
+      <div class="panel panel-default">
+	<span class="label label-default" style="font-size:1.2em">Storyline</span>
+	<div class="panel-body">
+	  <span id="storyline" class="output-text"></span>
+	</div>
+      </div>
+    </div>
+    
+    <div>
+      <div class="panel panel-default" style="float:left;width:33.33%">
+	<span class="label label-default" style="font-size:1.2em">Title to Story</span>
+	<div class="panel-body">
+	  <span id="system_1" class="output-text"></span>
+	  <span style="display:none;" id="system_1_ready" class = "output-text"></span>
+	</div>
+      </div>
+      
+      <div class="panel panel-default" style="float:left;width:33.33%">
+	<span class="label label-default" style="font-size:1.2em">Plan and Write</span>
+	<div class="panel-body">
+	  <span id="system_2" class="output-text"></span>
+	  <span style="display:none;" id="system_2_ready" class = "output-text"></span>
+	</div>
+      </div>
+      
+      <div class="panel panel-default" style="float:left;width:33.34%">
+	<span class="label label-default" style="font-size:1.2em">Plan and Revise</span>
+	<div class="panel-body">
+	  <span id="system_3" class="output-text"></span>
+	  <span style="display:none;" id="system_3_ready" class = "output-text"></span>
+	</div>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+<div id="footer">
+  <div class="container">
+    <div class="bg-warning" style="text-align:center"><b>Disclaimer:</b> All the entries made in this website will be logged for academic research.</div>
+  </div>
+</div>
+
+<script src="./static/js/stories.js"></script>
+</body>
+</html>

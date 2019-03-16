@@ -1,0 +1,2 @@
+0.021892453	context_scorer	ContextScorer	../models/rel1sent.pt
+2.979185e-06	context_scorer	ContextScorer	../models/lex1sent.pt

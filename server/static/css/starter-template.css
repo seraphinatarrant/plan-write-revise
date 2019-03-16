@@ -1,0 +1,62 @@
+body {
+  padding-top: 50px;
+}
+.starter-template {
+  padding: 10px 15px 0px 15px;
+  text-align: left;
+}
+
+.output {
+  padding: 0px 15px;
+}
+
+.output-text {
+    font-size:1.2em
+}
+
+.poem-line {
+    margin-bottom: 5px;
+}
+
+
+/* Jay's CSS*/
+
+#style {
+	display: inline-block;
+	width: 50%; 
+	}
+
+#rhymeScheme {
+    display: inline-block;
+}
+
+#frmt {
+	vertical-align: top;
+	display: inline-block;
+	}
+
+.slider-selection {
+	background: #BABABA;
+}
+
+#Message{
+	text-align: center;
+	color: red;
+	font-size: 20px;
+}
+
+#poem {
+    //font-family: 'Open Sans', serif;
+    //font-size: 24px;
+    //text-shadow: 4px 4px 4px #aaa;
+}
+
+.rhyme_span {
+    //font-style:italic;
+    //text-shadow: 4px 4px 4px #789;
+}
+
+.slider-tick-label{
+    font-size: 12px;
+}
+

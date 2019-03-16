@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="USC/ISI VISTA Group">
+
+    <title>Collaborative Story Development</title>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js">
+    </script>
+
+    <!-- Custom styles for this template -->
+    <link href="./static/css/starter-template.css" rel="stylesheet">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous">
+    </script>
+
+
+    <script type="text/javascript">
+      $(document).ready(function(){
+      $("button").click(function(){
+      $("p").hide();
+      });
+      });
+    </script>
+
+  </head>
+
+
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+	<div class="navbar-header">
+	  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation
+	    </span>
+            <span class="icon-bar">
+	    </span>
+            <span class="icon-bar">
+	    </span>
+	  </button>
+	  <a class="navbar-brand" href="#">Stories v1.0
+	  </a>
+	</div>
+	<div class="collapse navbar-collapse">
+	  <ul class="nav navbar-nav">
+
+            <li>
+	      <a href="./index.html">Auto</a>
+	    </li>	
+            <li class="active">
+	      <a href="./interactive.html">Interactive</a>
+	    </li>
+
+	    <li class="dropdown">
+	      <a class="dropdown-toggle" data-toggle="dropdown" href="#">Advanced
+		<span class="caret">
+		</span>
+	      </a>
+	      <ul class="dropdown-menu">
+		<li style="white-space: nowrap;">Storyline diversity (0.3-1.5):
+		  <input id="kw_temp" size="5"></input>
+		</li>
+		<li>Story diversity (0.3-4.5):
+		  <input id="story_temp" size="5"></input>
+		</li>
+		<li>Dedup:
+      <input type="checkbox" id="dedup" value="yes" checked></input>
+    </li>
+		<li>Maxlen:
+		  <input id="max_len" size=2></input>
+		</li>
+		<li>Plan-and-Write:
+		  <input type="radio" id="system_2" name="system_id" value="system_2"></input>
+		</li>
+		<li>Plan-and-Revise:
+		  <input type="radio" id="system_3" name="system_id" value="system_3" checked></input>
+		</li>
+		{% if server_debug_mode %}
+		<li>Rapid debugging mode:<input type="checkbox" id="debug_mode" name="debug_mode" value="yes" checked></input></li>
+		{% else %}
+		<li>Rapid debugging mode:<input type="checkbox" id="debug_mode" name="debug_mode" value="yes"></input></li>
+		{% endif %}
+	      </ul>
+	    </li>
+	  </ul>
+
+	  <ul class="nav navbar-nav navbar-right">
+	    <li style="display:none;">
+	      <a>
+		<span class="label label-primary" id="nstory"></span>
+	      </a>
+	    </li>
+	    <li>
+	      <span class="label label-primary" id="elapsed"></span>
+	    </li>
+	    <li>
+	      <span id="status" class="label label-info">Ready</span>
+	    </li>
+	  </ul>
+	</div>
+	<!--/.nav-collapse -->
+</div>
+</div>
+
+
+<div class="container">
+  <div class="panel panel-default">
+    <span class="label label-default" style="font-size:1.2em">Title</span>
+    <div class="panel-body">
+      <div class="input-group input-group-lg">
+        <input type="text" class="form-control" id="input-topic" placeholder="Enter a title: e.g. the not so haunted house">
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="button" id="start-button" data-toggle="tooltip" title="Start writing the collaborative storyline.">Start</button>
+          <button class="btn btn-default" type="button" id="reset-button" data=toggle="tooltip" title="Clear the title and storyline and begin again.">Reset</button>
+        </span>
+      </div>
+    </div>
+  </div>
+
+    <div class="row">
+      <div class="col-sm-6 col-md-6 col-lg-6">
+        <div class="panel panel-default" >
+  	  <span class="label label-default" style="font-size:1.2em">Storyline</span>
+	  <div class="panel-body">
+	    <span class="input-group-btn">
+	      <button class="btn btn-default" type="button" id="clear-button" disabled data-toggle="tooltip" title="Clear the storyline phrases.">Clear</button>
+	      <button class="btn btn-default" type="button" id="suggest-button" disabled data-toggle="tooltip" title="Ask the computer to suggest the next phrase in the storyline.">Suggest the Next Phrase</button>
+	      <!-- <button class="btn btn-default" type="button" id="generate-button" disabled data-toggle="tooltip" title="Generate a story from the title and storyline.">Generate a Story</button> -->
+	    </span>
+	    <div class="input-group input-group-lg">
+	      <input type="text" class="form-control" id="storyline_phrase_1" placeholder="Enter phrase 1 or click above for a suggestion" readonly></input>
+	      <input type="text" class="form-control" id="storyline_phrase_2" placeholder="Enter phrase 2 or click above for a suggestion" readonly></input>
+	      <input type="text" class="form-control" id="storyline_phrase_3" placeholder="Enter phrase 3 or click above for a suggestion" readonly></input>
+	      <input type="text" class="form-control" id="storyline_phrase_4" placeholder="Enter phrase 4 or click above for a suggestion" readonly></input>
+	      <input type="text" class="form-control" id="storyline_phrase_5" placeholder="Enter phrase 5 or click above for a suggestion" readonly></input>
+	    </div>
+	    <!-- /input-group -->
+	  </div>
+	  <span class="text-muted invisible" id="you-may-edit"><center>You may edit the storyline phrases at any time.</center></span>
+	</div>
+      </div>
+
+      <div class="col-sm-6 col-md-6 col-lg-6">
+        <div class="panel panel-default">
+	  <span class="label label-default" style="font-size:1.2em">Story</span>
+	  <div class="panel-body">
+
+
+	  	<span class="input-group-btn">
+	      <button class="btn btn-default" type="button" id="clear-story-button" disabled data-toggle="tooltip" title="Clear the story.">Clear</button>
+          <button class="btn btn-default" type="button" id="suggest-story-button" disabled data-toggle="tooltip" title="Ask the computer to suggest the next sentence in the story.">Suggest the Next Sentence</button>
+	      <button class="btn btn-default" type="button" id="generate-story-button" disabled data-toggle="tooltip" title="Generate a story from the title and storyline.">Generate a Story</button>
+	    </span>
+	    <div class="input-group input-group-lg">
+	      <input type="text" class="form-control" id="story_sentence_1" placeholder="Enter sentence 1 or click above for a suggestion" readonly></input>
+	      <input type="text" class="form-control" id="story_sentence_2" placeholder="Enter sentence 2 or click above for a suggestion" readonly></input>
+	      <input type="text" class="form-control" id="story_sentence_3" placeholder="Enter sentence 3 or click above for a suggestion" readonly></input>
+	      <input type="text" class="form-control" id="story_sentence_4" placeholder="Enter sentence 4 or click above for a suggestion" readonly></input>
+	      <input type="text" class="form-control" id="story_sentence_5" placeholder="Enter sentence 5 or click above for a suggestion" readonly></input>
+	    </div>
+	    <!-- /input-group -->
+	    <!-- <span id="story" class="output-text"></span> -->
+	  </div>
+	  <span class="text-muted invisible" id="you-may-edit-story"><center>You may edit the story sentences at any time.</center></span>
+	</div>
+      </div>
+    </div>
+    
+</div>
+
+<div id="footer">
+  <div class="container">
+    <div class="bg-warning" style="text-align:center"><b>Disclaimer:</b> All the entries made in this website will be logged for academic research.</div>
+  </div>
+</div>
+
+<script src="./static/js/interactive.js">
+</script>
+</body>
+</html>
