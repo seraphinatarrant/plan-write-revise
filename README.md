@@ -2,6 +2,8 @@
 
 This repository contains code for the Plan, Write, Revise paper (link and citation information soon). 
 Please cite the work if you use it.
+A working version of this same code and demo can be found at [here](http://cwc-story.isi.edu/)
+as used in the paper.
 
 ## Steps to setup
 
