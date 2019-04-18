@@ -1,9 +1,17 @@
 # Plan-Write-Revise
 
-This repository contains code for the Plan, Write, Revise paper (link and citation information soon). 
+This repository contains code for the [Plan, Write, Revise](https://arxiv.org/abs/1904.02357) paper. 
 Please cite the work if you use it.
+`@inproceedings{GoldfarbTarrant2019PlanWA,
+  title={Plan, Write, and Revise: an Interactive System for Open-Domain Story Generation},
+  author={Seraphina Goldfarb-Tarrant and Haining Feng and Nanyun Peng},
+  year={2019}
+}`
+
 A working version of this same code and demo can be found at [here](http://cwc-story.isi.edu/)
 as used in the paper.
+
+If you have comments/complaints/ideas, please feel free to send me an [email](mailto:serif@uw.edu) or open an issue. 
 
 ## Steps to setup
 
