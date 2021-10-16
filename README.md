@@ -23,7 +23,7 @@ the Plan-and-Write language model, and the 2 discriminators , and the matching v
 Make sure they are in the `models/` directory, with no nested folders.
 
 ### Install Requirements
-Use your favorite virtualenv manager and and install `requirements.txt` (in the root dir of this repo).
+Use your favorite virtualenv manager, with python=3.6, and install `requirements.txt` (in the root dir of this repo).
 Note that if you use a package manager like Anaconda, at the time of writing not all requirements
 are supported, so you will have to `pip install` whatever is missing into the conda/miniconda/etc 
 environment.
