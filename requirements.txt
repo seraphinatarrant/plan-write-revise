@@ -4,7 +4,7 @@ numpy==1.14.5
 olefile==0.45.1
 Pillow==4.2.1
 pycparser==2.18
-python==3.6
+#python==3.6
 scipy==1.1.0
 six==1.11.0
 spacy==2.0.12
