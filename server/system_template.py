@@ -39,7 +39,7 @@ class Story_Generator:
 
         self.story_end = os.environ.get("CWC_STORY_END", "<eos>")
         self.story_sep = os.environ.get("CWC_STORY_SEP", "</s>")
-        self.story_unk = os.environ.get("CWC_STORY_END", "<unk>")
+        self.story_unk = os.environ.get("CWC_STORY_UNK", "<unk>")
         self.beam_size = int(os.environ.get("CWC_BEAM_SIZE", "5"))
         self.title_end = os.environ.get("CWC_TITLE_END", "<EOT>")
 
